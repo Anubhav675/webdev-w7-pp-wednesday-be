@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 
 const createProduct = async (req, res) => {
     try {
-        // const user_id = req.user_id
-        const newProduct = await Product.create({ ...req.body });
+        const user_id = req.user_id
+        const newProduct = await Product.create({ ...req.body , user_id});
         res.status(201).json(newProduct)
         // const product = await Product.create(newProduct)
 

@@ -11,7 +11,8 @@ const productSchema = new mongoose.Schema({
         contactEmail: {type: String, required: true, unique: true},
         contactPhone: {type: String, required: true},
         isVerified: {type: Boolean, required: true}
-    }
+    },
+    user_id: {type:mongoose.Schema.Types.ObjectId, require:true, ref: "User"}
 },
 {timestamps: true}
 );
