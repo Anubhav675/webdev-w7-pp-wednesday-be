@@ -57,7 +57,7 @@ const AddProductPage = () => {
         addProduct (newProduct);
         console.log(newProduct);
 
-        navigate ("/");
+       navigate ("/");
     };
 
     return (
