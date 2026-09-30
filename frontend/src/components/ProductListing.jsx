@@ -1,10 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ProductListing = ({ product }) => {
   return (
     <div>
+      <Link to= {`/products/${product.id}`}>
       <h2>{product.productName}</h2>
-      <p>{product.category}</p>
+      </Link>
       <p>{product.description}</p>
       <p>{product.price}</p>
       <p>{product.inventoryCount}</p>
