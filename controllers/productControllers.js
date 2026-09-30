@@ -1,26 +1,44 @@
-const Product = require ('../models/productModel');
+const Product = require('../models/productModel');
 const mongoose = require('mongoose');
 
-const createProduct = async(req, res)=>{
-    try{
+const createProduct = async (req, res) => {
+    try {
         // const user_id = req.user_id
-        const newProduct = await Product.create({...req.body}); 
-        res.status(201).json(newProduct)       
+        const newProduct = await Product.create({ ...req.body });
+        res.status(201).json(newProduct)
         // const product = await Product.create(newProduct)
-       
-    }catch(error){
-        res.status(400).json({error:error.message})
+
+    } catch (error) {
+        res.status(400).json({ error: error.message })
     }
 }
 
 const getAllProducts = async (req, res) => {
     try {
-        const products = await Product.find({}).sort ({ created: 1});
-        res.status (200).json (products);
+        const products = await Product.find({}).sort({ created: 1 });
+        res.status(200).json(products);
     } catch (error) {
-        res.status (500).json ({message: "Failed to retrieve books"});
+        res.status(500).json({ message: "Failed to retrieve books" });
     }
 };
 
+const deleteProduct = async (req, res) => {
+    const { productId } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+        return res.status(404).json({ message: "Invalid product ID" })
+    }
+    try {
+        const deletedProduct = await Product.findOneAndDelete({ _id: productId })
+        if (deletedProduct) {
 
-module.exports = {createProduct, getAllProducts}
+            res.sendStatus(204)
+        } else {
+            res.status(404).json({ message: "Product id not found" })
+        }
+    } catch (error) {
+        res.status(500).json({ message: "Failed to delete book" })
+    }
+}
+
+
+module.exports = { createProduct, getAllProducts, deleteProduct }
