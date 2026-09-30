@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import EditProductPage from "./EditProductPage";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -73,6 +74,7 @@ const ProductPage = () => {
           </p>
           <button onClick={handleGoHome}>Back</button>
           <button onClick={() => handleDelete(product._id)}>Delete</button>
+          <button onClick={() => navigate(`/edit-product/${product._id}`)}>Edit</button>
         </>
       )}
     </div>
