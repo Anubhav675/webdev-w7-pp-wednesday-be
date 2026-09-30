@@ -1,5 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useState} from "react";
 import Home from "./pages/HomePage";
 import AddProductPage from "./pages/AddProductPage";
 import Navbar from "./components/Navbar";
@@ -25,10 +25,10 @@ const App = () => {
         <div className="content">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/add-product" element={<AddProductPage />} />
+            <Route path="/add-product" element={isAuthenticated ? <AddProductPage /> : <Navigate to="/signup" />} />
             <Route path="/show" element={<Show />} />
             <Route path="/products/:id" element={<ProductPage />} />
-            <Route path="/edit-product/:id" element={<EditProductPage />} />
+            <Route path="/edit-product/:id" element={isAuthenticated ? <EditProductPage /> : <Navigate to="/signup" />} />
             <Route
               path="/signup"
               element={<Signup setIsAuthenticated={setIsAuthenticated} />}

@@ -13,6 +13,8 @@ const AddProductPage = () => {
     const [contactEmail, setContactEmail ] = useState ("");
     const [contactPhone, setContactPhone] = useState ("");
     const [isVerified, setIsVerified] = useState ("true");
+    const user = JSON.parse(localStorage.getItem("user"));
+    
 
     const navigate = useNavigate ();
 
@@ -22,6 +24,7 @@ const AddProductPage = () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${user.token}`,
                 },
                 body: JSON.stringify(newProduct),
             });

@@ -2,7 +2,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const EditProductPage = ({product}) => {
+const EditProductPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [productName, setProductName] = useState ("");
@@ -14,6 +14,7 @@ const EditProductPage = ({product}) => {
     const [contactEmail, setContactEmail ] = useState ("");
     const [contactPhone, setContactPhone] = useState ("");
     const [isVerified, setIsVerified] = useState ("true");
+    const user = JSON.parse(localStorage.getItem("user"));
 
     useEffect (() => {
         const fetchBook = async () => {
@@ -45,6 +46,7 @@ const EditProductPage = ({product}) => {
                 method : "PUT",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${user.token}`
                 },
                 body: JSON.stringify(product),
             });

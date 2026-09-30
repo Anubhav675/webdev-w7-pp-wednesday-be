@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import EditProductPage from "./EditProductPage";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -8,12 +7,16 @@ const ProductPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user.token);
 
   const productDelete = async (productId) => {
     console.log(productId);
     try {
       const response = await fetch(`/api/products/${productId}`, {
         method: "DELETE",
+        headers: {
+        Authorization: `Bearer ${user.token}`}
       });
       if (!response.ok) throw new Error("Failed to delete");
     } catch (error) {
